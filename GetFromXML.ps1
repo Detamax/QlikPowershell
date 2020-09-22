@@ -1,20 +1,10 @@
-﻿ 
-
 Clear-Host
-
- 
 
 $Xml =  ""
 
- 
-
 $XPath = "//AddRecipient"
 
- 
-
 $DoneXML = Select-Xml -Path $Xml -XPath $XPath  | foreach {$_.Node.ID}
-
- 
 
 $ResultXML = foreach ($DoneXMLs in $DoneXML) {
 
@@ -24,17 +14,7 @@ $ResultXML = foreach ($DoneXMLs in $DoneXML) {
 
 }
 
- 
-
- 
-
 [xml]$XmlApp = Get-Content $Xml
-
- 
-
- 
-
- 
 
 $f = $XmlApp.DistributeTask.Name
 
@@ -42,27 +22,16 @@ $obj = New-Object -TypeName psobject
 
 $obj | Add-Member -MemberType NoteProperty -Name AppName -Value $f
 
- 
-
 $report = @()
 
  
-
 foreach ($GetLogin in $ResultXML) {    
 
- 
+   $ErrorActionPreference = 'SilentlyContinue'
 
-$ErrorActionPreference = 'SilentlyContinue'
-
- 
-
-  
 
     $GetObject = "" | Select-Object AppName, SamAccountName, CN, ObjectClass -ErrorAction SilentlyContinue
 
-   
-
- 
 
     $Users = Get-ADUser -Identity $GetLogin -Properties SamAccountName, CN, ObjectClass -ErrorAction SilentlyContinue
 
