@@ -139,18 +139,6 @@ $taskExtendedInfo = $gtsResp.Envelope.Body.GetTaskStatusResponse.GetTaskStatusRe
 if(!$taskExtendedInfo) {break}
 
 
-#if ($taskExtendedInfo.LastLogMessages -like '*failed*') {#
-    #Write-Host "Task failed"
-    #Write-Host "Task finished time : $($taskExtendedInfo.FinishedTime)"
-    #& "C:\Zabbix\zabbix_sender.exe" -z 10.5.5.254 -p 10055 -s $env:ComputerName -k job_aum_status -o '0'#
-#}
-
-#else {#
-    #Write-Host "successful"
-    #Write-Host "Task finished time : $($taskExtendedInfo.FinishedTime)"
-    #& "C:\Zabbix\zabbix_sender.exe" -z 10.5.5.254 -p 10055 -s $env:ComputerName -k job_aum_status -o '1'#
-#}#
-
 if ($taskExtendedInfo.StartTime.Equals("mm") -gt "30") {#
    Write-Host "Task executed after deadline"} else  {
    Write-Host "Task executed OK!"
@@ -160,18 +148,5 @@ if ($taskExtendedInfo.StartTime.Equals("mm") -gt "30") {#
 
 
 
-#if (((Get-Date).TimeOfDay - ([datetime]$taskExtendedInfo.FinishedTime).TimeOfDay).TotalMinutes -gt 30 ){ 
-    #Write-Host "Task executed after deadline"
-    #& "C:\Zabbix\zabbix_sender.exe" -z 10.5.5.254 -p 10055 -s $env:ComputerName -k job_aum_status -o '0'
-#} else  {
-    #Write-Host "Task executed OK!"
-    
-#}
 
-
-#else {
-    #Write-Host "successful"
-    #Write-Host "Task finished time : $($taskExtendedInfo.FinishedTime)"
-    #& "C:\Zabbix\zabbix_sender.exe" -z 10.5.5.254 -p 10055 -s $env:ComputerName -k job_aum_status -o '1'
-#}
     
